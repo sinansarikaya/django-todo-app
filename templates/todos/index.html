@@ -8,15 +8,13 @@
 <section class="py-5 text-center container">
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="fw-light">Album example</h1>
+      <h1 class="fw-light">Django Todo Application</h1>
       <p class="lead text-body-secondary">
-        Something short and leading about the collection below—its contents, the
-        creator, etc. Make it short and sweet, but not too short so folks don’t
-        simply skip over it entirely.
+        This is a Todo application built with Django. It allows you to manage your tasks efficiently.
       </p>
       <p>
         <a href="{% url 'create' %}" class="btn btn-warning my-2"
-          >Main call to action</a
+          >Add New Todo</a
         >
       </p>
     </div>
@@ -27,7 +25,7 @@
     <thead>
       <tr>
         <th scope="col">To-Do Name</th>
-        <th scope="col">Is Finished?</th>
+        <th scope="col">Is Completed?</th>
         <th scope="col">Date and Time</th>
         <th scope="col">Delete</th>
         <th scope="col">Update</th>
@@ -36,9 +34,19 @@
     <tbody>
       {% for todo in todo_list %}
       <tr>
-        <td>{{todo.title}}</td>
-        <td><a class="btn btn-warning" href="#" role="button">No</a></td>
-        <td>{{todo.created_at}}</td>
+        {% if todo.is_completed %}
+          <td><del>{{todo.title}}<del></td>
+          <td>
+            <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">Yes</a>
+          </td>
+        {% else %}
+          <td>{{todo.title}}</td>
+          <td>
+            <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">No</a>
+          </td>
+        {% endif %}
+
+        <td>{{todo.updated_at}}</td>
         <td>
           <a
             class="btn btn-danger"

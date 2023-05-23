@@ -7,5 +7,7 @@ urlpatterns = [
     path('create/', create, name='create'),
     path('delete/<int:todos_id>', delete, name='delete'),
     path('update/<int:todos_id>', update, name='update'),
+    path('toggle-completed/<int:todos_id>/',
+         toggle_completed, name='toggle_completed'),
 
 ]

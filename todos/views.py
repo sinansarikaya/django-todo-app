@@ -40,3 +40,10 @@ def update(request, todos_id):
         form = ListForm(instance=todo)
 
     return render(request, 'todos/update.html', {'form': form})
+
+
+def toggle_completed(request, todos_id):
+    todo = TodosModel.objects.get(pk=todos_id)
+    todo.is_completed = not todo.is_completed
+    todo.save()
+    return redirect('index')
