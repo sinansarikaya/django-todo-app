@@ -1,12 +1,18 @@
 {% extends './base.html' %}
+{% comment %} {% load messages %} {% endcomment %}
 
 <!--  Title   -->
 {% block title %} Home - Django Todos App {% endblock title%}
+{% load static %}
 
 <!--  Content   -->
 {% block content %}
+
 <section class="py-5 text-center container">
   <div class="row py-lg-5">
+    <div class="mb-5 card border-0 bg-dark d-inline-block">
+      <img class="logoBg" src="{% static 'images/logo.png' %}" alt="Logo">
+    </div>
     <div class="col-lg-6 col-md-8 mx-auto">
       <h1 class="fw-light">Django Todo Application</h1>
       <p class="lead text-body-secondary">
@@ -21,6 +27,14 @@
   </div>
 </section>
 <div class="container">
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  <h4>Todos to be Completed</h4>
   <table class="table">
     <thead>
       <tr>
@@ -33,40 +47,53 @@
     </thead>
     <tbody>
       {% for todo in todo_list %}
+      {% if not todo.is_completed %}
       <tr>
-        {% if todo.is_completed %}
-          <td><del>{{todo.title}}<del></td>
-          <td>
-            <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">Yes</a>
-          </td>
-        {% else %}
-          <td>{{todo.title}}</td>
-          <td>
-            <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">No</a>
-          </td>
-        {% endif %}
-
-        <td>{{todo.updated_at}}</td>
+        <td>{{ todo.title }}</td>
         <td>
-          <a
-            class="btn btn-danger"
-            href="{% url 'delete' todo.id %}"
-            role="button"
-            >Delete</a
-          >
+          <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">No</a>
+        </td>
+        <td>{{ todo.updated_at|date:'Y-m-d H:i:s' }}</td>
+        <td>
+          <a class="btn btn-danger" href="{% url 'delete' todo.id %}" role="button">Delete</a>
         </td>
         <td>
-          <a
-            class="btn btn-warning"
-            href="{% url 'update' todo.id %}"
-            role="button"
-            >Update</a
-          >
+          <a class="btn btn-warning" href="{% url 'update' todo.id %}" role="button">Update</a>
         </td>
       </tr>
+      {% endif %}
       {% endfor %}
     </tbody>
   </table>
+  <h4 class="mt-5">Completed Todos</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">To-Do Name</th>
+        <th scope="col">Is Completed?</th>
+        <th scope="col">Date and Time</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for todo in todo_list %}
+        {% if todo.is_completed %}
+        <tr>
+          <td><del>{{ todo.title }}</del></td>
+          <td>
+            <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">Yes</a>
+          </td>
+          <td>{{ todo.updated_at|date:'Y-m-d H:i:s' }}</td>
+          <td>
+            <a class="btn btn-danger" href="{% url 'delete' todo.id %}" role="button">Delete</a>
+          </td>
+          <td>
+            <a class="btn btn-warning" href="{% url 'update' todo.id %}" role="button">Update</a>
+          </td>
+        </tr>
+        {% endif %}
+      {% endfor %}
 </div>
 
 {% endblock content %}

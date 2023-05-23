@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from .models import TodosModel
 from .forms import ListForm
 
 
 def index(request):
-    todo_list = TodosModel.objects.all()
+    todo_list = TodosModel.objects.order_by('-updated_at')
     return render(request, 'todos/index.html', {'todo_list': todo_list})
 
 
@@ -17,14 +18,17 @@ def create(request):
         form = ListForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Todo basariyla eklendi.')
             return redirect('index')
     else:
         return render(request, 'todos/create.html')
 
 
 def delete(request, todos_id):
-    todo = TodosModel.objects.get(pk=todos_id)
+    todo = get_object_or_404(TodosModel, pk=todos_id)
     todo.delete()
+
+    messages.success(request, 'Silme işlemi başarıyla tamamlandı.')
     return redirect('index')
 
 
