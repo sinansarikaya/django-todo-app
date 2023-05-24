@@ -11,17 +11,15 @@
       <div class="mb-5 card border-0 bg-dark d-inline-block">
           <img class="logoBg" src="{% static 'images/logo.png' %}" alt="Logo">
       </div>
-      <h2>Checkout form</h2>
+      <h2>Update Todo</h2>
       <p class="lead">
-        Below is an example form built entirely with Bootstrap’s form controls.
-        Each required form group has a validation state that can be triggered by
-        attempting to submit the form without completing it.
+        This page allows you to update an existing todo item. Use the form below to modify the details of the todo and save the changes.
       </p>
     </div>
 
     <div class="row g-5">
       <div class="col-12">
-        <h4 class="mb-3">Edit item</h4>
+        <h4 class="mb-3">Edit Todo</h4>
         <form class="needs-validation" method="POST">
           {% csrf_token %}
           <div class="row g-3">
