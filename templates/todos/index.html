@@ -8,8 +8,18 @@
 <!--  Content   -->
 {% block content %}
 
-<section class="py-5 text-center container">
-  <div class="row py-lg-5">
+<div class="alert-box">
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+<section class="text-center container">
+  <div class="row">
     <div class="mb-5 card border-0 bg-dark d-inline-block">
       <img class="logoBg" src="{% static 'images/logo.png' %}" alt="Logo">
     </div>
@@ -27,13 +37,6 @@
   </div>
 </section>
 <div class="container">
-  {% if messages %}
-  <ul class="messages">
-      {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-      {% endfor %}
-  </ul>
-  {% endif %}
   <h4>Todos to be Completed</h4>
   <table class="table">
     <thead>

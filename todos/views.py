@@ -18,17 +18,21 @@ def create(request):
         form = ListForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Todo basariyla eklendi.')
+            messages.success(request, 'Todo item successfully added!')
             return redirect('index')
+        else:
+            messages.error(request, 'Error adding todo item. Please try again.')
     else:
         return render(request, 'todos/create.html')
 
 
 def delete(request, todos_id):
-    todo = get_object_or_404(TodosModel, pk=todos_id)
-    todo.delete()
-
-    messages.success(request, 'Silme işlemi başarıyla tamamlandı.')
+    try:
+        todo = get_object_or_404(TodosModel, pk=todos_id)
+        todo.delete()
+        messages.warning(request, 'The deletion process was completed successfully.')
+    except Exception as e:    
+        messages.error(request, 'Error deleting todo item. Please try again.')
     return redirect('index')
 
 
@@ -39,7 +43,10 @@ def update(request, todos_id):
         form = ListForm(request.POST, instance=todo)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Todo item successfully updated!')
             return redirect('index')
+        else:
+            messages.error(request, 'Error updating todo item. Please try again.')
     else:
         form = ListForm(instance=todo)
 
@@ -47,7 +54,13 @@ def update(request, todos_id):
 
 
 def toggle_completed(request, todos_id):
-    todo = TodosModel.objects.get(pk=todos_id)
+    todo = get_object_or_404(TodosModel, pk=todos_id)
     todo.is_completed = not todo.is_completed
     todo.save()
+
+    if todo.is_completed:
+        messages.success(request, 'Task marked as completed!')
+    else:
+        messages.warning(request, 'Task marked as incomplete!')
+    
     return redirect('index')
