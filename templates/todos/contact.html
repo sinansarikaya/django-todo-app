@@ -7,6 +7,15 @@
 <!--  Content   -->
 {% block content %}
 <section class="ftco-section">
+  <div class="alert-box">
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
   <div class="container">
     <div class="row justify-content-center">
       <div class="d-flex justify-content-center mb-5 card border-0 d-inline-block">
@@ -21,6 +30,7 @@
         <div class="contact-wrap w-100">
           <h4 class="mb-4">Send me a message</h4>
           <form method="POST" id="contactForm" name="contactForm" class="contactForm">
+            {% csrf_token %}
             <div class="row">
               <div class="col-md-12 mb-3">
                 <div class="form-group">

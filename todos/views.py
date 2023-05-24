@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import TodosModel
-from .forms import ListForm
+from .forms import ListForm, ContactForm
 
 
 def index(request):
@@ -10,7 +10,18 @@ def index(request):
 
 
 def contact(request):
-    return render(request, 'todos/contact.html')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Message has been sent successfully!')
+            return redirect('contact')
+        else:
+            messages.error(request, 'Error sending the message. Please try again.')
+    else:
+        form = ContactForm()
+
+    return render(request, 'todos/contact.html', {'form': form})
 
 
 def create(request):
