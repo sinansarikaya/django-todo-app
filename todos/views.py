@@ -45,7 +45,7 @@ def create(request):
     return render(request, 'todos/create.html', {'form': form})
 
 
-
+@login_required
 def delete(request, todos_id):
     try:
         todo = get_object_or_404(Todo, pk=todos_id)
@@ -55,7 +55,7 @@ def delete(request, todos_id):
         messages.error(request, 'Error deleting todo item. Please try again.')
     return redirect('index')
 
-
+@login_required
 def update(request, todos_id):
     todo = Todo.objects.get(pk=todos_id)
 
@@ -72,7 +72,7 @@ def update(request, todos_id):
 
     return render(request, 'todos/update.html', {'form': form})
 
-
+@login_required
 def toggle_completed(request, todos_id):
     todo = get_object_or_404(Todo, pk=todos_id)
     todo.is_completed = not todo.is_completed
