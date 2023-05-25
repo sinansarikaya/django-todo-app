@@ -1,7 +1,9 @@
 from django.db import models
+from users.models import User
 
 
-class TodosModel(models.Model):
+class Todo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField()
     is_completed = models.BooleanField(default=False)
@@ -11,7 +13,7 @@ class TodosModel(models.Model):
     def __str__(self):
         return self.title
 
-class ContactModel(models.Model):
+class Contact(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     subject = models.CharField(max_length=128)

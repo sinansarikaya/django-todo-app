@@ -1,4 +1,4 @@
-{% extends './base.html' %}
+{% extends '../base.html' %}
 {% comment %} {% load messages %} {% endcomment %}
 
 <!--  Title   -->
@@ -43,6 +43,7 @@
       <tr>
         <th scope="col">To-Do Name</th>
         <th scope="col">Is Completed?</th>
+        <th scope="col">Author</th>
         <th scope="col">Date and Time</th>
         <th scope="col">Delete</th>
         <th scope="col">Update</th>
@@ -56,6 +57,7 @@
         <td>
           <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">No</a>
         </td>
+        <td>{{ todo.user.first_name }} {{ todo.user.last_name }}</td>
         <td>{{ todo.updated_at|date:'Y-m-d H:i:s' }}</td>
         <td>
           <a class="btn btn-danger" href="{% url 'delete' todo.id %}" role="button">Delete</a>
@@ -74,6 +76,7 @@
       <tr>
         <th scope="col">To-Do Name</th>
         <th scope="col">Is Completed?</th>
+        <th scope="col">Author</th>
         <th scope="col">Date and Time</th>
         <th scope="col">Delete</th>
         <th scope="col">Update</th>
@@ -87,6 +90,7 @@
           <td>
             <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">Yes</a>
           </td>
+          <td>{{ todo.user.first_name }} {{ todo.user.last_name }}</td>
           <td>{{ todo.updated_at|date:'Y-m-d H:i:s' }}</td>
           <td>
             <a class="btn btn-danger" href="{% url 'delete' todo.id %}" role="button">Delete</a>

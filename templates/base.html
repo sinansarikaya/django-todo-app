@@ -52,6 +52,44 @@
                 >Home</a
               >
             </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/' %}active{% endif %}"
+                aria-current="page"
+                href="{% url 'logout' %}"
+                >Logout</a
+              >
+            </li>
+            <li class="nav-item">
+              {% if user.is_authenticated %}
+              <span class="nav-link">
+                {{ user.first_name }}  {{ user.last_name }}
+              </span>
+              {% endif %}
+            </li>
+           
+            {% else %}
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/users/login/' %}active{% endif %}"
+                aria-current="page"
+                href="{% url 'login' %}"
+                >Login</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/users/register/' %}active{% endif %}"
+                aria-current="page"
+                href="{% url 'register' %}"
+                >Register</a
+              >
+            </li>
+              
+            {% endif %}
+            
+           
           </ul>
           <a
             class="nav-link"

@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from .models import TodosModel, ContactModel
+from .models import Todo, Contact
 
-@admin.register(TodosModel)
+@admin.register(Todo)
 class TodosAdmin(admin.ModelAdmin):
     list_display = ["title", "is_completed", "created_at", "updated_at"]
     list_display_links = ["title"]
@@ -14,11 +14,11 @@ class TodosAdmin(admin.ModelAdmin):
     ordering = ["-created_at", "title"]
     readonly_fields = ["created_at"]
     class Meta:
-        model: TodosModel     
+        model: Todo     
         verbose_name = _("Todo")
         verbose_name_plural = _("Todos") 
   
-@admin.register(ContactModel)
+@admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ["subject", "email", "created_at", "updated_at"]
     list_display_links = ["subject"]
@@ -29,7 +29,7 @@ class ContactAdmin(admin.ModelAdmin):
     readonly_fields = ["created_at"]
 
     class Meta:
-        model: ContactModel     
+        model: Contact     
         verbose_name = _("Contact")
         verbose_name_plural = _("Contacts")   
 

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # Apps
     'todos',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,8 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / STATIC_URL
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / MEDIA_URL
+LOGIN_URL = 'login'  # Giriş sayfasının URL adresi
+LOGIN_REDIRECT_URL = '/' # Başarılı giriş işleminden sonra yönlendirilecek sayfa
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

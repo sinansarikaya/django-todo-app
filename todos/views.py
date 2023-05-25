@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import TodosModel
-from .forms import ListForm, ContactForm
+from .models import Todo
+from .forms import TodoForm, ContactForm
 
 
 def index(request):
-    todo_list = TodosModel.objects.order_by('-updated_at')
+    todo_list = Todo.objects.order_by('-updated_at')
     return render(request, 'todos/index.html', {'todo_list': todo_list})
 
 
@@ -23,23 +24,31 @@ def contact(request):
 
     return render(request, 'todos/contact.html', {'form': form})
 
-
+@login_required
 def create(request):
     if request.method == 'POST':
-        form = ListForm(request.POST)
+        form = TodoForm(request.POST)
         if form.is_valid():
-            form.save()
+            todo = form.save(commit=False)  
+            todo.user = request.user  
+            todo.save()  
             messages.success(request, 'Todo item successfully added!')
             return redirect('index')
         else:
-            messages.error(request, 'Error adding todo item. Please try again.')
+            if 'title' in form.errors:
+                messages.error(request, 'Error with the title field. Please try again.')
+            if 'content' in form.errors:
+                messages.error(request, 'Error with the content field. Please try again.')
     else:
-        return render(request, 'todos/create.html')
+        form = TodoForm()
+
+    return render(request, 'todos/create.html', {'form': form})
+
 
 
 def delete(request, todos_id):
     try:
-        todo = get_object_or_404(TodosModel, pk=todos_id)
+        todo = get_object_or_404(Todo, pk=todos_id)
         todo.delete()
         messages.warning(request, 'The deletion process was completed successfully.')
     except Exception as e:    
@@ -48,10 +57,10 @@ def delete(request, todos_id):
 
 
 def update(request, todos_id):
-    todo = TodosModel.objects.get(pk=todos_id)
+    todo = Todo.objects.get(pk=todos_id)
 
     if request.method == 'POST':
-        form = ListForm(request.POST, instance=todo)
+        form = TodoForm(request.POST, instance=todo)
         if form.is_valid():
             form.save()
             messages.success(request, 'Todo item successfully updated!')
@@ -59,13 +68,13 @@ def update(request, todos_id):
         else:
             messages.error(request, 'Error updating todo item. Please try again.')
     else:
-        form = ListForm(instance=todo)
+        form = TodoForm(instance=todo)
 
     return render(request, 'todos/update.html', {'form': form})
 
 
 def toggle_completed(request, todos_id):
-    todo = get_object_or_404(TodosModel, pk=todos_id)
+    todo = get_object_or_404(Todo, pk=todos_id)
     todo.is_completed = not todo.is_completed
     todo.save()
 
