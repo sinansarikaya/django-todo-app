@@ -3,38 +3,43 @@
 }
 .alert-box {
   position: relative;
-  right: 0;
   top: 60px;
-  height: 60px;
+  left: 0;
+  height: 50px;
   width: auto;
+  z-index: 1000;
   overflow: hidden;
 }
+
 .alert {
   position: absolute;
+  height: 50px;
+  width: auto;
+  right: -100%;
   background: rgba(255, 255, 255, 0.43);
   color: #fff;
-  right: -100%;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.43);
   border-radius: 16px 0 0 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  z-index: 1000;
+  align-items: center;
+  justify-content: center;
   transition: right 0.8s ease-in-out;
 }
+
 .alert.success {
   background-color: #347534 !important;
 }
+
 .alert.error {
   background-color: #d9534f !important;
 }
+
 .alert.warning {
   background-color: #ffd700 !important;
   color: #212529;
 }
+
 .alert.active {
   right: 0;
 }

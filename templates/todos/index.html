@@ -1,29 +1,18 @@
 {% extends '../base.html' %}
-{% comment %} {% load messages %} {% endcomment %}
 
 <!--  Title   -->
-{% block title %} Home - Django Todos App {% endblock title%}
+{% block title %} Home - Django Todos App {% endblock title %}
 {% load static %}
 
 <!--  Content   -->
 {% block content %}
 
-<div class="alert-box">
-  {% if messages %}
-    {% for message in messages %}
-    <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
-</div>
-
-<section class="text-center container">
+<section class="text-center container-fluid">
   <div class="row">
     <div class="mb-5 card border-0 bg-dark d-inline-block">
       <img class="logoBg" src="{% static 'images/logo.png' %}" alt="Logo">
     </div>
-    <div class="col-lg-6 col-md-8 mx-auto">
+    <div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
       <h1 class="fw-light">Django Todo Application</h1>
       <p class="lead text-body-secondary">
         This is a Todo application built with Django. It allows you to manage your tasks efficiently.
@@ -36,7 +25,7 @@
     </div>
   </div>
 </section>
-<div class="container">
+<div class="container-fluid">
   <h4>Todos to be Completed</h4>
   <table class="table">
     <thead>
