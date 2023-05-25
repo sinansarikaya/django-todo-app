@@ -1,15 +1,33 @@
 {% extends '../base.html' %}
 
 <!--  Title   -->
-{% block title %} Home - Django Todos App {% endblock title%}
+{% block title %} Register - Django Todos App {% endblock title %}
 {% load static %}
 
 <!--  Content   -->
 {% block content %}
-<h2>Register</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+{% load widget_tweaks %}
+
+<div class="row justify-content-center align-items-center" style="min-height:calc(100vh - 56px)">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Register</h2>
+            </div>
+            <div class="card-body p-5">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group mb-3">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field|add_class:'form-control' }}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-warning btn-block">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}

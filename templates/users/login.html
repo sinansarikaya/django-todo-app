@@ -1,15 +1,34 @@
 {% extends '../base.html' %}
 
 <!--  Title   -->
-{% block title %} Home - Django Todos App {% endblock title%}
+{% block title %} Login - Django Todos App {% endblock title %}
 {% load static %}
 
 <!--  Content   -->
 {% block content %}
-<h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
+{% load widget_tweaks %}
+
+<div class="row justify-content-center align-items-center" style="min-height:calc(100vh - 56px)">
+  <div class="col-md-6">
+      <div class="card">
+          <div class="card-header">
+              <h2 class="text-center">Login</h2>
+          </div>
+          <div class="card-body p-5">
+              <form method="post">
+                  {% csrf_token %}
+                  <div class="form-group mb-3">
+                      <label for="{{ form.username.id_for_label }}">Username:</label>
+                      {{ form.username|add_class:'form-control' }}
+                  </div>
+                  <div class="form-group mb-3">
+                      <label for="{{ form.password.id_for_label }}">Password:</label>
+                      {{ form.password|add_class:'form-control' }}
+                  </div>
+                  <button type="submit" class="btn btn-warning btn-block">Login</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
 {% endblock content %}
