@@ -1,13 +1,28 @@
 {
-    "builds": [{
-        "src": "django-todo-app/wsgi.py",
+    "version": 2,
+    "builds": [
+      {
+        "src": "asgi.py",
         "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.10" }
-    }],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "django-todo-app/wsgi.py"
+        "config": {
+          "maxLambdaSize": "50mb"
         }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/static/(.*)",
+        "headers": { "cache-control": "s-maxage=31536000,immutable" },
+        "dest": "/static/$1"
+      },
+      {
+        "src": "/media/(.*)",
+        "headers": { "cache-control": "s-maxage=31536000,immutable" },
+        "dest": "/media/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "asgi.py"
+      }
     ]
-}
+  }
