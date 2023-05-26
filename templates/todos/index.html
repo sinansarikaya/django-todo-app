@@ -27,57 +27,25 @@
 </section>
 <div class="container-fluid">
   <h4>Todos to be Completed</h4>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">To-Do Name</th>
-        <th scope="col">Is Completed?</th>
-        <th scope="col">Author</th>
-        <th scope="col">Date and Time</th>
-        <th scope="col">Delete</th>
-        <th scope="col">Update</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for todo in todo_list %}
-      {% if not todo.is_completed %}
-      <tr>
-        <td>{{ todo.title }}</td>
-        <td>
-          <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">No</a>
-        </td>
-        <td>{{ todo.user.first_name }} {{ todo.user.last_name }}</td>
-        <td>{{ todo.updated_at|date:'Y-m-d H:i:s' }}</td>
-        <td>
-          <a class="btn btn-danger" href="{% url 'delete' todo.id %}" role="button">Delete</a>
-        </td>
-        <td>
-          <a class="btn btn-warning" href="{% url 'update' todo.id %}" role="button">Update</a>
-        </td>
-      </tr>
-      {% endif %}
-      {% endfor %}
-    </tbody>
-  </table>
-  <h4 class="mt-5">Completed Todos</h4>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">To-Do Name</th>
-        <th scope="col">Is Completed?</th>
-        <th scope="col">Author</th>
-        <th scope="col">Date and Time</th>
-        <th scope="col">Delete</th>
-        <th scope="col">Update</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for todo in todo_list %}
-        {% if todo.is_completed %}
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
         <tr>
-          <td><del>{{ todo.title }}</del></td>
+          <th scope="col">To-Do Name</th>
+          <th scope="col">Is Completed?</th>
+          <th scope="col">Author</th>
+          <th scope="col">Date and Time</th>
+          <th scope="col">Delete</th>
+          <th scope="col">Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for todo in todo_list %}
+        {% if not todo.is_completed %}
+        <tr>
+          <td>{{ todo.title }}</td>
           <td>
-            <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">Yes</a>
+            <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">No</a>
           </td>
           <td>{{ todo.user.first_name }} {{ todo.user.last_name }}</td>
           <td>{{ todo.updated_at|date:'Y-m-d H:i:s' }}</td>
@@ -89,7 +57,45 @@
           </td>
         </tr>
         {% endif %}
-      {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <h4 class="mt-5">Completed Todos</h4>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">To-Do Name</th>
+          <th scope="col">Is Completed?</th>
+          <th scope="col">Author</th>
+          <th scope="col">Date and Time</th>
+          <th scope="col">Delete</th>
+          <th scope="col">Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for todo in todo_list %}
+          {% if todo.is_completed %}
+          <tr>
+            <td><del>{{ todo.title }}</del></td>
+            <td>
+              <a class="btn btn-warning" href="{% url 'toggle_completed' todo.id %}" role="button">Yes</a>
+            </td>
+            <td>{{ todo.user.first_name }} {{ todo.user.last_name }}</td>
+            <td>{{ todo.updated_at|date:'Y-m-d H:i:s' }}</td>
+            <td>
+              <a class="btn btn-danger" href="{% url 'delete' todo.id %}" role="button">Delete</a>
+            </td>
+            <td>
+              <a class="btn btn-warning" href="{% url 'update' todo.id %}" role="button">Update</a>
+            </td>
+          </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 {% endblock content %}
