@@ -133,11 +133,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 import os
 STATIC_URL = 'static/'
-# STATICFILES_DIR = [BASE_DIR / 'static/']
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-# STATIC_ROOT = BASE_DIR / STATIC_URL
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / MEDIA_URL
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    '/var/www/static/',
+]
+
+# MEDIA FILES
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 LOGIN_URL = 'login'  # Giriş sayfasının URL adresi
 LOGIN_REDIRECT_URL = '/' # Başarılı giriş işleminden sonra yönlendirilecek sayfa
 
