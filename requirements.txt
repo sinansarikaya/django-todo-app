@@ -3,4 +3,5 @@ Django==4.2.1
 django-decouple==2.1
 django-js-asset==2.0.0
 django-widget-tweaks==1.4.12
+psycopg2-binary==2.9.6
 sqlparse==0.4.4
