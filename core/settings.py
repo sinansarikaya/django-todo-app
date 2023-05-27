@@ -138,6 +138,10 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 LOGIN_URL = 'login'  # Giriş sayfasının URL adresi
 LOGIN_REDIRECT_URL = '/' # Başarılı giriş işleminden sonra yönlendirilecek sayfa
 
+# STORAGES = {
+#     "staticfiles": {"BACKEND": "core.storage.S3Storage"}
+# }
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
