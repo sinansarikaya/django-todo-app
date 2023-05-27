@@ -1,0 +1,73 @@
+.logoBg {
+  filter: drop-shadow(10px 15px 0.75rem #eee);
+}
+.alert-box {
+  position: relative;
+  top: 60px;
+  left: 0;
+  height: 50px;
+  width: auto;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.alert {
+  position: absolute;
+  height: 50px;
+  width: auto;
+  right: -100%;
+  background: rgba(255, 255, 255, 0.43);
+  color: #fff;
+  border-radius: 16px 0 0 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: right 0.8s ease-in-out;
+}
+
+.alert.success {
+  background-color: #347534 !important;
+}
+
+.alert.error {
+  background-color: #d9534f !important;
+}
+
+.alert.warning {
+  background-color: #ffd700 !important;
+  color: #212529;
+}
+
+.alert.active {
+  right: 0;
+}
+
+.alert .fa-xmark {
+  align-self: flex-end;
+  cursor: pointer;
+  color: #7a7b7b;
+  font-size: 1.2rem;
+  transition: color 0.5s;
+}
+.alert .fa-xmark:hover {
+  color: #181818;
+}
+.dbox {
+  color: #adb5bd;
+  margin-bottom: 10px;
+}
+
+.dbox a {
+  text-decoration: none;
+  color: #adb5bd;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all .3s ease-in;
+}
+
+.dbox a:hover {
+  color: #ffc107;
+}
